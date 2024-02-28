@@ -4,16 +4,15 @@ import dateparser
 import datetime
 import os
 
+import resy_bot.scheduler as ap_scheduler
+
 from config import Config
 
-from resy_bot.logging import logging
-
+from resy_bot.logging import logging, Slogger
 from resy_bot.models import ResyConfig, TimedReservationRequest, WaitlistReservationRequest
 from resy_bot.manager import ResyManager
 
 from flask import Flask, request, Response
-
-from apscheduler.schedulers.background import BackgroundScheduler
 
 config = Config()
 
@@ -24,8 +23,9 @@ logger.setLevel("INFO")
 
 app = Flask(__name__)
 
-scheduler = BackgroundScheduler()
-scheduler.start()
+scheduler = ap_scheduler.initialize()
+
+slogger = Slogger()
 
 ## initialize scheduler
 #scheduler = APScheduler()
@@ -51,7 +51,7 @@ def load_reservations(reservation_config_path: str) -> str:
     job_ids = []
     for r in restaurants:
         reservation_request = scheduled_reservations[r]
-        print(reservation_request)
+        logger.info(reservation_request)
         logger.info(f"Making a scheduled reservation drop for {reservation_request}")
         timed_request = TimedReservationRequest(**reservation_request)
         scheduler.add_job(manager.make_reservation_at_opening_time, args=[timed_request], trigger="cron", hour="7", id=r, replace_existing=True)
@@ -76,17 +76,20 @@ def get_waitlisted_table(resy_config_path: str, reservation_config_path: str,
 
     venue_name = notification[0].lower().replace(" ", "_")
     reservation_request = reservation_config["waitlisted"][venue_name]
+    ideal_date = dateparser.parse(notification[1])
+    party_size = int(notification[2].strip(" Guests"))
     
-    reservation_request["reservation_request"]["ideal_date"] = dateparser.parse(notification[1])
-    reservation_request["reservation_request"]["party_size"] = int(notification[2].strip(" Guests"))
+    reservation_request["reservation_request"]["ideal_date"] = ideal_date
+    reservation_request["reservation_request"]["party_size"] = party_size
 
     config = ResyConfig(**config_data)
     manager = ResyManager.build(config)
 
+    slogger.slog(f"We've got a live one, making a request for {venue_name} on {ideal_date} for {party_size} -- fingers crossed!")
     ### Make request
     waitlist_request = WaitlistReservationRequest(**reservation_request)
 
-    print(waitlist_request)
+    logger.info(waitlist_request)
     return manager.make_reservation_now(waitlist_request)
 
 ### Routes for Flask app
