@@ -18,6 +18,7 @@ logger.setLevel("INFO")
 slogger = Slogger()
 
 scheduler = BlockingScheduler(logger=logger, timezone='America/New_York')
+scheduler.start()
 
 def get_scheduled_jobs():
     jobs = scheduler.get_jobs()
@@ -51,8 +52,8 @@ def load_reservations() -> None:
     return
 
 
+if __name__=="__main__": 
+    load_reservations()
+    scheduler.add_job(get_scheduled_jobs, "interval", minutes=1)
 
-###load_reservations()
-scheduler.add_job(get_scheduled_jobs, "interval", minutes=1)
 
-scheduler.start()
