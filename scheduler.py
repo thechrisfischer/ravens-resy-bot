@@ -55,4 +55,4 @@ def load_reservations() -> None:
 if __name__ == "__main__":
 
     load_reservations()
-    scheduler.add_job(get_schduled_jobs, "interval", minutes=1)
+    scheduler.add_job(get_scheduled_jobs, "interval", minutes=1)
