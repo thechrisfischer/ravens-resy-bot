@@ -1,6 +1,6 @@
 import json
 
-from apscheduler.schedulers.background import BackgroundScheduler
+from apscheduler.schedulers.blocking import BlockingScheduler
 from resy_bot.logging import logging, Slogger
 from resy_bot.models import ResyConfig, TimedReservationRequest
 from resy_bot.manager import ResyManager
@@ -17,7 +17,7 @@ logger.setLevel("INFO")
 
 slogger = Slogger()
 
-scheduler = BackgroundScheduler(logger=logger, timezone='America/New_York')
+scheduler = BlockingScheduler(logger=logger, timezone='America/New_York')
 
 def get_scheduled_jobs():
     jobs = scheduler.get_jobs()
