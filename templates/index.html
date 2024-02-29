@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+ 
+<head>
+    <title>FlaskTest</title>
+</head>
+ 
+<body>
+    <h2>I am a powerful flask application</h2>
+    <h4>When a Raven makes a reservation but no one is there to see it.....</h4>
+ <!-- this section can be replaced by a child document -->  
+{% block body %}
+
+<p>The currect scheduled jobs on APScheduler are below</p>
+<ul>
+    {% for j in jobs %}
+    <li>{{ j.id  }} --- The next run time is --- {{j.next_run_time}}</li>
+    {% endfor %}
+</ul>
+ 
+ 
+{% endblock %}
+ 
+ 
+</body>
+ 
+</html>
