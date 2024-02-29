@@ -12,7 +12,7 @@ from resy_bot.logging import logging, Slogger
 from resy_bot.models import ResyConfig, TimedReservationRequest, WaitlistReservationRequest
 from resy_bot.manager import ResyManager
 
-from flask import Flask, request, Response
+from flask import Flask, request, Response, render_template
 
 config = Config()
 
@@ -102,6 +102,14 @@ def respond():
     get_waitlisted_table(RESY_USER_CONFIG, "reservation_configs/reservations.json", notification)
     return Response(status=200)
 
+@app.route('/scheduled-jobs')
+def get_scheduled_jobs():
+    jobs = scheduler.get_jobs()
+
+    for j in jobs:
+        print(f"{j.id} ---- {j.next_run_time}")
+        
+    return render_template("index.html", jobs=scheduler.get_jobs())
 
 if __name__ == "__main__":
 
