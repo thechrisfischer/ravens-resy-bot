@@ -24,7 +24,7 @@ def get_scheduled_jobs():
     jobs = scheduler.get_jobs()
 
     for j in jobs:
-        logger.info(f"{j.id} ---- {j.next_run_time}")
+        print(f"{j.id} ---- {j.next_run_time}")
     return
 
 def load_reservations() -> None:
