@@ -1,7 +1,5 @@
 import json
 import dateparser
-import datetime
-import os
 
 from config import Config
 
