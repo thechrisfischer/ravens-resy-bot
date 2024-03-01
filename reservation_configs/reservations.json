@@ -44,6 +44,20 @@
         "expected_drop_minute": 0,
         "venue_name": "4_charles"
       }    
-    }
+    }, 
+    "carbone": {
+      "reservation_request": {
+        "venue_id": 6194,
+        "party_size": 2,
+        "ideal_hour": 19,
+        "ideal_minute": 0,
+        "window_hours": 1,
+        "prefer_early": true,
+        "days_in_advance": 30,
+        "expected_drop_hour": 10,
+        "expected_drop_minute": 0,
+        "venue_name": "carbone"
+      }    
+    } 
   }
 }
