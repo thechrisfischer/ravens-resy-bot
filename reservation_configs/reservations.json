@@ -28,6 +28,28 @@
         "prefer_early": true,
         "venue_name": "4charles_tavern"
       }
+    },
+    "carbone": {
+      "reservation_request": {
+        "venue_id": 6194,
+        "party_size": 2,
+        "ideal_hour": 19,
+        "ideal_minute": 0,
+        "window_hours": 1,
+        "prefer_early": true,
+        "venue_name": "carbone"
+      }
+    },
+    "diner": {
+      "reservation_request": {
+        "venue_id": 2038,
+        "party_size": 2,
+        "ideal_hour": 19,
+        "ideal_minute": 0,
+        "window_hours": 1,
+        "prefer_early": true,
+        "venue_name": "diner"
+      }
     }
   },
   "scheduled": {
