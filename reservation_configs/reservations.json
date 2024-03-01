@@ -50,6 +50,28 @@
         "prefer_early": true,
         "venue_name": "diner"
       }
+    },
+    "raouls": {
+      "reservation_request": {
+        "venue_id": 7241,
+        "party_size": 2,
+        "ideal_hour": 19,
+        "ideal_minute": 0,
+        "window_hours": 1,
+        "prefer_early": true,
+        "venue_name": "raouls"
+      }
+    },
+    "le_b": {
+      "reservation_request": {
+        "venue_id": 51336,
+        "party_size": 2,
+        "ideal_hour": 19,
+        "ideal_minute": 0,
+        "window_hours": 1,
+        "prefer_early": true,
+        "venue_name": "le_b"
+      }
     }
   },
   "scheduled": {
