@@ -23,8 +23,9 @@ def get_scheduled_jobs():
     jobs = scheduler.get_jobs()
 
     for j in jobs:
-        print(f"{j.id} ---- {j.next_run_time}")
+        logger.info(f"{j.id} ---- {j.next_run_time}")
     return
+
 
 def load_reservations() -> None:
     logger.info("loading reservation requests")
@@ -52,8 +53,8 @@ def load_reservations() -> None:
 
 if __name__ == "__main__" :
     
-    scheduler.add_job(get_scheduled_jobs, "interval", minutes=1)
+    scheduler.add_job(get_scheduled_jobs, "interval", hours=1)
     load_reservations()
-    
+
     scheduler.start()
-    
+
