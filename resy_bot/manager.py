@@ -120,9 +120,10 @@ class ResyManager:
         cycle until we hit the opening time, then run & return the reservation
         """
         drop_time = self._get_drop_time(reservation_request)
+        venue_name = reservation_request.reservation_request.venue_name
         last_check = datetime.now()
 
-        slogger(f"Starting up the droptime engine for {reservation_request["venue_name"]} -- waiting until drop time")
+        slogger(f"Starting up the droptime engine for {venue_name} -- waiting until drop time")
 
         while True:
             if datetime.now() < drop_time:
@@ -137,7 +138,7 @@ class ResyManager:
                 continue
 
             logger.info(f"time reached, making a reservation now! {datetime.now()}")
-            slogger(f"It's go time -- trying to make a reservation for {reservation_request["venue_name"]}")
+            slogger(f"It's go time -- trying to make a reservation for {venue_name}")
             return self.make_reservation_with_retries(
                 reservation_request.reservation_request
             )
