@@ -62,11 +62,16 @@ class ResyManager:
 
     def make_reservation(self, reservation_request: ReservationRequest) -> str:
         body = build_find_request_body(reservation_request)
+        venue_name = reservation_request.reservation_request.venue_name
+        reservation_time = reservation_request.reservation_request.ideal_hour
+
+        slogger.slog(f"Sending a reservation request to {venue_name} for around {reservation_time} ")
 
         slots = self.api_access.find_booking_slots(body)
         logger.info(f"Returned: {slots}")
 
         if len(slots) == 0:
+            slogger.slog("Nothing available within your booking preferences")
             raise NoSlotsError("No Slots Found")
         else:
             logger.info(len(slots))
@@ -123,7 +128,7 @@ class ResyManager:
         venue_name = reservation_request.reservation_request.venue_name
         last_check = datetime.now()
 
-        slogger(f"Starting up the droptime engine for {venue_name} -- waiting until drop time")
+        slogger.slog(f"Starting up the droptime engine for {venue_name} -- waiting until drop time")
 
         while True:
             if datetime.now() < drop_time:
@@ -138,7 +143,7 @@ class ResyManager:
                 continue
 
             logger.info(f"time reached, making a reservation now! {datetime.now()}")
-            slogger(f"It's go time -- trying to make a reservation for {venue_name}")
+            slogger.slog(f"It's go time -- trying to make a reservation for {venue_name}")
             return self.make_reservation_with_retries(
                 reservation_request.reservation_request
             )

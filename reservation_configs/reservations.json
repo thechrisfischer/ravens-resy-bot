@@ -13,7 +13,7 @@
         "party_size": 1,
         "ideal_hour": 19,
         "ideal_minute": 0,
-        "window_hours": 2,
+        "window_hours": 1,
         "prefer_early": true,
         "venue_name": "minetta_tavern"
       }
