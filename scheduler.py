@@ -1,7 +1,7 @@
 import json
 
 from apscheduler.schedulers.blocking import BlockingScheduler
-from resy_bot.logging import logging, Slogger
+from resy_bot.logging import logging
 from resy_bot.models import ResyConfig, TimedReservationRequest
 from resy_bot.manager import ResyManager
 
@@ -14,8 +14,6 @@ RESERVATION_CONFIG_PATH = config.RESERVATION_CONFIG_PATH
 
 logger = logging.getLogger("Scheduler")
 logger.setLevel("INFO")
-
-slogger = Slogger()
 
 scheduler = BlockingScheduler(logger=logger, timezone='America/New_York')
 
